@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 11, 2023 at 08:54 PM
+-- Generation Time: Apr 19, 2023 at 02:15 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
   `no_hp` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
@@ -56,21 +56,22 @@ INSERT INTO `admin` (`uuid`, `username`, `nama`, `prodi_id`, `role_id`, `change_
 --
 
 CREATE TABLE `anggota` (
-  `surat_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `surat_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nim` varchar(9) DEFAULT NULL,
   `prodi_id` int NOT NULL,
   `nama` varchar(100) DEFAULT NULL,
-  `no_hp` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `no_hp` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `anggota`
 --
 
 INSERT INTO `anggota` (`surat_id`, `nim`, `prodi_id`, `nama`, `no_hp`, `created_at`, `updated_at`) VALUES
-('3d5d9f7d-d2d8-463f-ba66-32250e396af1', 'E41210759', 1, 'Muhammad Adi Saputro', '085748314069', '2023-04-11 19:03:49', '2023-04-11 19:03:49');
+('ef787ca9-06c2-4f24-948e-ed4f6d39260a', 'E41210759', 1, 'Muhammad Adi Saputro', '085748314069', '2023-04-19 14:14:57', '2023-04-19 14:14:57'),
+('ef787ca9-06c2-4f24-948e-ed4f6d39260a', 'E41210766', 1, 'Akbar Firmansyah', '0851927412', '2023-04-19 14:14:57', '2023-04-19 14:14:57');
 
 -- --------------------------------------------------------
 
@@ -79,13 +80,13 @@ INSERT INTO `anggota` (`surat_id`, `nim`, `prodi_id`, `nama`, `no_hp`, `created_
 --
 
 CREATE TABLE `dosen` (
-  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nip` varchar(20) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `prodi_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dosen`
@@ -98,6 +99,36 @@ INSERT INTO `dosen` (`uuid`, `nip`, `nama`, `prodi_id`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `id` int NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `jawaban` text NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jenis_surat`
 --
 
@@ -106,13 +137,14 @@ CREATE TABLE `jenis_surat` (
   `keterangan` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `jenis_surat`
 --
 
 INSERT INTO `jenis_surat` (`kode`, `keterangan`, `created_at`, `updated_at`) VALUES
+('LL', 'Lain Lain', '2023-04-13 10:42:18', '2023-04-13 10:42:18'),
 ('MK', 'Mata Kuliah', '2023-04-09 00:12:46', '2023-04-09 00:12:46'),
 ('OP', 'Observasi Penelitian', '2023-04-09 00:15:11', '2023-04-09 00:15:11'),
 ('PP', 'Pengajuan PKL', '2023-04-09 00:14:10', '2023-04-09 00:14:10'),
@@ -121,11 +153,27 @@ INSERT INTO `jenis_surat` (`kode`, `keterangan`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint UNSIGNED NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint UNSIGNED NOT NULL,
+  `reserved_at` int UNSIGNED DEFAULT NULL,
+  `available_at` int UNSIGNED NOT NULL,
+  `created_at` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `koordinator`
 --
 
 CREATE TABLE `koordinator` (
-  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama` varchar(100) NOT NULL,
   `no_hp` varchar(13) DEFAULT NULL,
   `kode_surat` varchar(8) NOT NULL,
@@ -133,7 +181,7 @@ CREATE TABLE `koordinator` (
   `prodi_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `koordinator`
@@ -161,7 +209,7 @@ CREATE TABLE `mahasiswa` (
   `tanggal_lahir` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `mahasiswa`
@@ -169,6 +217,27 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`uuid`, `nim`, `nama`, `email`, `prodi_id`, `password`, `alamat`, `no_hp`, `tanggal_lahir`, `created_at`, `updated_at`) VALUES
 ('ff76e353-2def-4b8d-88a5-27be7cc6160f', 'E41210759', 'Muhammad Adi Saputro', 'muhammadxxz7@gmail.com', 1, '$2y$10$uajQ9n4q.mmxiy3jjBQkOutzDAFGOmh.QlWv9wTjOTwetylBp/EX6', 'Tanggul - Jember', '085748314069', '2023-05-21', '2023-04-09 19:26:45', '2023-04-09 19:26:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2019_08_19_000000_create_failed_jobs_table', 1),
+(2, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(3, '2023_04_16_074741_create_jobs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -181,7 +250,7 @@ CREATE TABLE `password_resets` (
   `email` varchar(50) NOT NULL,
   `token` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `password_resets`
@@ -193,7 +262,27 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 (3, 'muhammadxxz7@gmail.com', 'f6bb864d-a275-48b8-9c66-c399a1b4f825', '2023-04-11 16:42:42'),
 (4, 'muhammadxxz7@gmail.com', '8bf5ef62-6f3d-489c-8f54-73cb36c77ac8', '2023-04-11 16:45:54'),
 (5, 'muhammadxxz7@gmail.com', '6a6abb17-ba2c-4e5f-a05a-61995419749b', '2023-04-11 17:11:29'),
-(6, 'muhammadxxz7@gmail.com', '2080af12-9d63-4ea0-ba54-6b4c30b8faad', '2023-04-11 17:12:25');
+(6, 'muhammadxxz7@gmail.com', '2080af12-9d63-4ea0-ba54-6b4c30b8faad', '2023-04-11 17:12:25'),
+(7, 'muhammadxxz7@gmail.com', 'a766d20a-d320-4262-9bc5-09a6050048fa', '2023-04-13 10:50:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -203,10 +292,10 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 
 CREATE TABLE `prodi` (
   `id` int NOT NULL,
-  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `prodi`
@@ -214,7 +303,8 @@ CREATE TABLE `prodi` (
 
 INSERT INTO `prodi` (`id`, `keterangan`, `created_at`, `updated_at`) VALUES
 (1, 'TIF Reguler', '2023-04-07 15:43:57', '2023-04-07 15:43:57'),
-(2, 'All', '2023-04-08 02:23:10', '2023-04-08 02:23:10');
+(2, 'All', '2023-04-08 02:23:10', '2023-04-08 02:23:10'),
+(3, 'TIF Inter', '2023-04-19 13:43:35', '2023-04-19 13:43:35');
 
 -- --------------------------------------------------------
 
@@ -224,10 +314,10 @@ INSERT INTO `prodi` (`id`, `keterangan`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `role` (
   `id` int NOT NULL,
-  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `role`
@@ -249,7 +339,7 @@ CREATE TABLE `status` (
   `keterangan` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `status`
@@ -269,30 +359,31 @@ INSERT INTO `status` (`id`, `info`, `keterangan`, `created_at`, `updated_at`) VA
 --
 
 CREATE TABLE `surat` (
-  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `kode_surat` varchar(8) NOT NULL,
   `status_id` int DEFAULT '2',
-  `dosen_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `kode_koordinator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `dosen_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `kode_koordinator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama_mitra` varchar(100) DEFAULT NULL,
   `alamat_mitra` text,
   `tanggal_dibuat` date DEFAULT NULL,
   `tanggal_pelaksanaan` date NOT NULL,
   `tanggal_selesai` date DEFAULT NULL,
-  `judul_ta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `kebutuhan` enum('Eksternal','Internal') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `judul_ta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kebutuhan` enum('Eksternal','Internal') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alasan_penolakan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `keterangan` text,
   `softfile_scan` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `surat`
 --
 
-INSERT INTO `surat` (`uuid`, `kode_surat`, `status_id`, `dosen_id`, `kode_koordinator`, `nama_mitra`, `alamat_mitra`, `tanggal_dibuat`, `tanggal_pelaksanaan`, `tanggal_selesai`, `judul_ta`, `kebutuhan`, `keterangan`, `softfile_scan`, `created_at`, `updated_at`) VALUES
-('3d5d9f7d-d2d8-463f-ba66-32250e396af1', 'TA', 2, '5ca75274-78bb-4c81-976a-e019219e152c', '18bfab4b-b84a-4209-b91d-2a2da914c742', 'tesss', 'tesss alamat', '2023-04-02', '2023-04-02', '2023-04-25', NULL, 'Eksternal', 'tes keterangan', NULL, '2023-04-11 19:03:49', '2023-04-11 19:03:49');
+INSERT INTO `surat` (`uuid`, `kode_surat`, `status_id`, `dosen_id`, `kode_koordinator`, `nama_mitra`, `alamat_mitra`, `tanggal_dibuat`, `tanggal_pelaksanaan`, `tanggal_selesai`, `judul_ta`, `kebutuhan`, `alasan_penolakan`, `keterangan`, `softfile_scan`, `created_at`, `updated_at`) VALUES
+('ef787ca9-06c2-4f24-948e-ed4f6d39260a', 'TA', 2, '5ca75274-78bb-4c81-976a-e019219e152c', '18bfab4b-b84a-4209-b91d-2a2da914c742', 'tesss', 'tesss alamat', '2023-04-02', '2023-04-02', '2023-04-25', NULL, 'Eksternal', NULL, 'tes keterangan', NULL, '2023-04-19 14:14:57', '2023-04-19 14:14:57');
 
 --
 -- Indexes for dumped tables
@@ -322,10 +413,30 @@ ALTER TABLE `dosen`
   ADD KEY `prodi_id` (`prodi_id`);
 
 --
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jenis_surat`
 --
 ALTER TABLE `jenis_surat`
   ADD PRIMARY KEY (`kode`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
 
 --
 -- Indexes for table `koordinator`
@@ -344,10 +455,24 @@ ALTER TABLE `mahasiswa`
   ADD KEY `prodi_id` (`prodi_id`);
 
 --
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
 -- Indexes for table `prodi`
@@ -382,16 +507,46 @@ ALTER TABLE `surat`
 --
 
 --
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `role`
