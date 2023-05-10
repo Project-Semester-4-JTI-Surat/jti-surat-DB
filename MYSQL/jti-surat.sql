@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 19, 2023 at 02:15 PM
+-- Generation Time: May 10, 2023 at 04:45 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -31,7 +31,6 @@ CREATE TABLE `admin` (
   `uuid` varchar(50) NOT NULL,
   `username` varchar(20) DEFAULT NULL,
   `nama` varchar(100) DEFAULT NULL,
-  `prodi_id` int NOT NULL,
   `role_id` int NOT NULL,
   `change_password` enum('true','false') NOT NULL DEFAULT 'false',
   `password` varchar(100) NOT NULL,
@@ -44,10 +43,33 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`uuid`, `username`, `nama`, `prodi_id`, `role_id`, `change_password`, `password`, `no_hp`, `created_at`, `updated_at`) VALUES
-('1d7c01b3-07f5-430e-9efa-503c8687c1b1', 'adminjti2', 'Indriana Rahmawati', 1, 1, 'false', '$2y$10$bG7nC/6KcvdoIcmrJl/quumilHjAJwkpWtHQ0RE6hN0xR82GBPFd6', '082331504590', '2023-04-08 02:21:14', '2023-04-08 02:21:14'),
-('7e231caf-2cf2-4dd6-a320-0b5005a69f83', 'super2', 'SuperAdmin2', 2, 2, 'false', '$2y$10$HeiTvse.HLdq8aMHfkmxi.fRmJGNBv..3dxuiHKxaVa73Fc9bufnq', '6208122255966', '2023-04-08 02:24:20', '2023-04-08 02:24:20'),
-('ecae0d90-b6bb-498d-84a8-3e707dd8dffc', 'adigans123', 'Muhammad Adi Saputro', 1, 1, 'true', '$2y$10$O1EyX2jfB.LjTFsnSw5E8.hdE.xWZmrc7uqQ1S8/0Nksy88qtfUHi', '081890768905', '2023-04-08 03:09:17', '2023-04-08 05:25:45');
+INSERT INTO `admin` (`uuid`, `username`, `nama`, `role_id`, `change_password`, `password`, `no_hp`, `created_at`, `updated_at`) VALUES
+('1d7c01b3-07f5-430e-9efa-503c8687c1b1', 'adminjti2', 'Indriana Rahmawati', 1, 'false', '$2y$10$bG7nC/6KcvdoIcmrJl/quumilHjAJwkpWtHQ0RE6hN0xR82GBPFd6', '082331504590', '2023-04-08 02:21:14', '2023-04-08 02:21:14'),
+('7e231caf-2cf2-4dd6-a320-0b5005a69f83', 'super2', 'SuperAdmin2', 2, 'false', '$2y$10$HeiTvse.HLdq8aMHfkmxi.fRmJGNBv..3dxuiHKxaVa73Fc9bufnq', '6208122255966', '2023-04-08 02:24:20', '2023-04-08 02:24:20'),
+('ecae0d90-b6bb-498d-84a8-3e707dd8dffc', 'adigans123', 'Muhammad Adi Saputro', 1, 'true', '$2y$10$O1EyX2jfB.LjTFsnSw5E8.hdE.xWZmrc7uqQ1S8/0Nksy88qtfUHi', '081890768905', '2023-04-08 03:09:17', '2023-04-08 05:25:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_prodi`
+--
+
+CREATE TABLE `admin_prodi` (
+  `admin_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `prodi_id` int NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_prodi`
+--
+
+INSERT INTO `admin_prodi` (`admin_id`, `prodi_id`, `created_at`, `updated_at`) VALUES
+('1d7c01b3-07f5-430e-9efa-503c8687c1b1', 1, '2023-05-09 14:24:29', '2023-05-09 14:24:29'),
+('1d7c01b3-07f5-430e-9efa-503c8687c1b1', 6, '2023-05-09 14:24:29', '2023-05-09 14:24:29'),
+('ecae0d90-b6bb-498d-84a8-3e707dd8dffc', 4, '2023-05-09 14:49:22', '2023-05-09 14:49:22'),
+('ecae0d90-b6bb-498d-84a8-3e707dd8dffc', 1, '2023-05-09 15:41:54', '2023-05-09 15:41:54');
 
 -- --------------------------------------------------------
 
@@ -58,6 +80,8 @@ INSERT INTO `admin` (`uuid`, `username`, `nama`, `prodi_id`, `role_id`, `change_
 CREATE TABLE `anggota` (
   `surat_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nim` varchar(9) DEFAULT NULL,
+  `ketua` enum('true','false') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'true' COMMENT 'kolom untuk menentukan apakah anggota tersebut ketua dalam kelompok atau tidak\r\n',
+  `individu` enum('true','false') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'false' COMMENT 'kolom untuk menentukan apakah mahasiswa tersebut berkelompok atau individu\r\n',
   `prodi_id` int NOT NULL,
   `nama` varchar(100) DEFAULT NULL,
   `no_hp` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -69,9 +93,9 @@ CREATE TABLE `anggota` (
 -- Dumping data for table `anggota`
 --
 
-INSERT INTO `anggota` (`surat_id`, `nim`, `prodi_id`, `nama`, `no_hp`, `created_at`, `updated_at`) VALUES
-('ef787ca9-06c2-4f24-948e-ed4f6d39260a', 'E41210759', 1, 'Muhammad Adi Saputro', '085748314069', '2023-04-19 14:14:57', '2023-04-19 14:14:57'),
-('ef787ca9-06c2-4f24-948e-ed4f6d39260a', 'E41210766', 1, 'Akbar Firmansyah', '0851927412', '2023-04-19 14:14:57', '2023-04-19 14:14:57');
+INSERT INTO `anggota` (`surat_id`, `nim`, `ketua`, `individu`, `prodi_id`, `nama`, `no_hp`, `created_at`, `updated_at`) VALUES
+('49b376e8-a7ed-449d-a269-05a8a3defdf9', 'E41210759', 'true', 'false', 1, 'Muhammad Adi Saputro', '085748314069', '2023-05-10 16:14:39', '2023-05-10 16:14:39'),
+('49b376e8-a7ed-449d-a269-05a8a3defdf9', 'E41210766', 'false', 'false', 1, 'Akbar Firmansyah', '0851927412', '2023-05-10 16:14:39', '2023-05-10 16:14:39');
 
 -- --------------------------------------------------------
 
@@ -135,6 +159,7 @@ CREATE TABLE `faq` (
 CREATE TABLE `jenis_surat` (
   `kode` varchar(8) NOT NULL,
   `keterangan` varchar(50) DEFAULT NULL,
+  `template` varchar(30) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -143,12 +168,12 @@ CREATE TABLE `jenis_surat` (
 -- Dumping data for table `jenis_surat`
 --
 
-INSERT INTO `jenis_surat` (`kode`, `keterangan`, `created_at`, `updated_at`) VALUES
-('LL', 'Lain Lain', '2023-04-13 10:42:18', '2023-04-13 10:42:18'),
-('MK', 'Mata Kuliah', '2023-04-09 00:12:46', '2023-04-09 00:12:46'),
-('OP', 'Observasi Penelitian', '2023-04-09 00:15:11', '2023-04-09 00:15:11'),
-('PP', 'Pengajuan PKL', '2023-04-09 00:14:10', '2023-04-09 00:14:10'),
-('TA', 'Tugas Akhir', '2023-04-08 01:28:31', '2023-04-08 01:28:31');
+INSERT INTO `jenis_surat` (`kode`, `keterangan`, `template`, `created_at`, `updated_at`) VALUES
+('LL', 'Lain Lain', '', '2023-04-13 10:42:18', '2023-04-13 10:42:18'),
+('MK', 'Mata Kuliah', '', '2023-04-09 00:12:46', '2023-04-09 00:12:46'),
+('OBS', 'Observasi Penelitian', '', '2023-04-09 00:15:11', '2023-04-09 00:15:11'),
+('PK', 'Pengajuan PKL', '', '2023-04-09 00:14:10', '2023-04-09 00:14:10'),
+('TA', 'Tugas Akhir', '', '2023-04-08 01:28:31', '2023-04-08 01:28:31');
 
 -- --------------------------------------------------------
 
@@ -293,6 +318,7 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `prodi` (
   `id` int NOT NULL,
   `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `note` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -301,10 +327,13 @@ CREATE TABLE `prodi` (
 -- Dumping data for table `prodi`
 --
 
-INSERT INTO `prodi` (`id`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 'TIF Reguler', '2023-04-07 15:43:57', '2023-04-07 15:43:57'),
-(2, 'All', '2023-04-08 02:23:10', '2023-04-08 02:23:10'),
-(3, 'TIF Inter', '2023-04-19 13:43:35', '2023-04-19 13:43:35');
+INSERT INTO `prodi` (`id`, `keterangan`, `note`, `created_at`, `updated_at`) VALUES
+(1, 'TIF Reguler', 'D4 Teknik Informatika', '2023-04-07 15:43:57', '2023-04-07 15:43:57'),
+(2, 'All', '', '2023-04-08 02:23:10', '2023-04-08 02:23:10'),
+(3, 'TIF Inter', '', '2023-04-19 13:43:35', '2023-04-19 13:43:35'),
+(4, 'MIF Inter', '', NULL, NULL),
+(5, 'MIF ', '', NULL, NULL),
+(6, 'TKK ', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -364,6 +393,7 @@ CREATE TABLE `surat` (
   `status_id` int DEFAULT '2',
   `dosen_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `kode_koordinator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `prodi_id` int NOT NULL COMMENT 'prodi mahasiswa yang melakukan pengajuan surat\r\n',
   `nama_mitra` varchar(100) DEFAULT NULL,
   `alamat_mitra` text,
   `tanggal_dibuat` date DEFAULT NULL,
@@ -382,8 +412,8 @@ CREATE TABLE `surat` (
 -- Dumping data for table `surat`
 --
 
-INSERT INTO `surat` (`uuid`, `kode_surat`, `status_id`, `dosen_id`, `kode_koordinator`, `nama_mitra`, `alamat_mitra`, `tanggal_dibuat`, `tanggal_pelaksanaan`, `tanggal_selesai`, `judul_ta`, `kebutuhan`, `alasan_penolakan`, `keterangan`, `softfile_scan`, `created_at`, `updated_at`) VALUES
-('ef787ca9-06c2-4f24-948e-ed4f6d39260a', 'TA', 2, '5ca75274-78bb-4c81-976a-e019219e152c', '18bfab4b-b84a-4209-b91d-2a2da914c742', 'tesss', 'tesss alamat', '2023-04-02', '2023-04-02', '2023-04-25', NULL, 'Eksternal', NULL, 'tes keterangan', NULL, '2023-04-19 14:14:57', '2023-04-19 14:14:57');
+INSERT INTO `surat` (`uuid`, `kode_surat`, `status_id`, `dosen_id`, `kode_koordinator`, `prodi_id`, `nama_mitra`, `alamat_mitra`, `tanggal_dibuat`, `tanggal_pelaksanaan`, `tanggal_selesai`, `judul_ta`, `kebutuhan`, `alasan_penolakan`, `keterangan`, `softfile_scan`, `created_at`, `updated_at`) VALUES
+('49b376e8-a7ed-449d-a269-05a8a3defdf9', 'PK', 4, '5ca75274-78bb-4c81-976a-e019219e152c', '18bfab4b-b84a-4209-b91d-2a2da914c742', 1, 'tesss', 'tesss alamat', '2023-04-02', '2023-04-02', '2023-04-25', 'Pembuatan Aplikasi', 'Eksternal', NULL, 'tes keterangan', NULL, '2023-05-10 16:14:39', '2023-05-10 16:15:19');
 
 --
 -- Indexes for dumped tables
@@ -394,8 +424,14 @@ INSERT INTO `surat` (`uuid`, `kode_surat`, `status_id`, `dosen_id`, `kode_koordi
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`uuid`),
-  ADD KEY `role_id` (`role_id`),
-  ADD KEY `prodi_id` (`prodi_id`);
+  ADD KEY `role_id` (`role_id`);
+
+--
+-- Indexes for table `admin_prodi`
+--
+ALTER TABLE `admin_prodi`
+  ADD KEY `id_admin` (`admin_id`,`prodi_id`),
+  ADD KEY `id_prodi` (`prodi_id`);
 
 --
 -- Indexes for table `anggota`
@@ -500,7 +536,8 @@ ALTER TABLE `surat`
   ADD KEY `kode_surat` (`kode_surat`),
   ADD KEY `status_id` (`status_id`),
   ADD KEY `dosen_id` (`dosen_id`),
-  ADD KEY `kode_koordinator` (`kode_koordinator`);
+  ADD KEY `kode_koordinator` (`kode_koordinator`),
+  ADD KEY `prodi_id` (`prodi_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -546,7 +583,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -568,8 +605,14 @@ ALTER TABLE `status`
 -- Constraints for table `admin`
 --
 ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`prodi_id`) REFERENCES `prodi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKadmin63973` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+
+--
+-- Constraints for table `admin_prodi`
+--
+ALTER TABLE `admin_prodi`
+  ADD CONSTRAINT `admin_prodi_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `admin_prodi_ibfk_2` FOREIGN KEY (`prodi_id`) REFERENCES `prodi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `anggota`
@@ -603,6 +646,7 @@ ALTER TABLE `mahasiswa`
 ALTER TABLE `surat`
   ADD CONSTRAINT `FKsurat482557` FOREIGN KEY (`kode_surat`) REFERENCES `jenis_surat` (`kode`),
   ADD CONSTRAINT `FKsurat94522` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
+  ADD CONSTRAINT `prodi_fk` FOREIGN KEY (`prodi_id`) REFERENCES `prodi` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `surat_ibfk_2` FOREIGN KEY (`kode_koordinator`) REFERENCES `koordinator` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `surat_ibfk_3` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
