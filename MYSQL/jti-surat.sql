@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
   `no_hp` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
@@ -58,16 +58,16 @@ INSERT INTO `admin` (`uuid`, `username`, `nama`, `jk`, `role_id`, `prodi_id`, `c
 --
 
 CREATE TABLE `anggota` (
-  `surat_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL,
+  `surat_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nim` varchar(9) DEFAULT NULL,
-  `ketua` enum('true','false') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL DEFAULT 'true' COMMENT 'kolom untuk menentukan apakah anggota tersebut ketua dalam kelompok atau tidak\r\n',
-  `individu` enum('true','false') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL DEFAULT 'false' COMMENT 'kolom untuk menentukan apakah mahasiswa tersebut berkelompok atau individu\r\n',
+  `ketua` enum('true','false') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'true' COMMENT 'kolom untuk menentukan apakah anggota tersebut ketua dalam kelompok atau tidak\r\n',
+  `individu` enum('true','false') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'false' COMMENT 'kolom untuk menentukan apakah mahasiswa tersebut berkelompok atau individu\r\n',
   `prodi_id` int NOT NULL,
   `nama` varchar(100) DEFAULT NULL,
-  `no_hp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci DEFAULT NULL,
+  `no_hp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `anggota`
@@ -83,13 +83,13 @@ INSERT INTO `anggota` (`surat_id`, `nim`, `ketua`, `individu`, `prodi_id`, `nama
 --
 
 CREATE TABLE `dosen` (
-  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL,
+  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nip` varchar(20) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `prodi_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dosen`
@@ -128,7 +128,7 @@ CREATE TABLE `faq` (
   `jawaban` text NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,7 @@ CREATE TABLE `jenis_surat` (
   `template` varchar(30) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `jenis_surat`
@@ -179,7 +179,7 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `koordinator` (
-  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL,
+  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama` varchar(100) NOT NULL,
   `no_hp` varchar(13) DEFAULT NULL,
   `kode_surat` varchar(8) NOT NULL,
@@ -187,7 +187,7 @@ CREATE TABLE `koordinator` (
   `prodi_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `koordinator`
@@ -215,7 +215,7 @@ CREATE TABLE `mahasiswa` (
   `tanggal_lahir` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -249,7 +249,7 @@ CREATE TABLE `password_resets` (
   `email` varchar(50) NOT NULL,
   `token` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `password_resets`
@@ -291,11 +291,11 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `prodi` (
   `id` int NOT NULL,
-  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci DEFAULT NULL,
+  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `prodi`
@@ -317,10 +317,10 @@ INSERT INTO `prodi` (`id`, `keterangan`, `note`, `created_at`, `updated_at`) VAL
 
 CREATE TABLE `role` (
   `id` int NOT NULL,
-  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL,
+  `keterangan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `role`
@@ -342,7 +342,7 @@ CREATE TABLE `status` (
   `keterangan` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `status`
@@ -362,25 +362,25 @@ INSERT INTO `status` (`id`, `info`, `keterangan`, `created_at`, `updated_at`) VA
 --
 
 CREATE TABLE `surat` (
-  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci NOT NULL,
+  `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `kode_surat` varchar(8) NOT NULL,
   `status_id` int DEFAULT '2',
-  `dosen_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci DEFAULT '7c2d25bc-f3dc-11ed-a05b-0242ac120003',
-  `kode_koordinator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci DEFAULT 'ab1adde2-f3dc-11ed-a05b-0242ac120003',
+  `dosen_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '7c2d25bc-f3dc-11ed-a05b-0242ac120003',
+  `kode_koordinator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'ab1adde2-f3dc-11ed-a05b-0242ac120003',
   `prodi_id` int NOT NULL COMMENT 'prodi mahasiswa yang melakukan pengajuan surat\r\n',
   `nama_mitra` varchar(100) DEFAULT NULL,
   `alamat_mitra` text,
   `tanggal_dibuat` date DEFAULT NULL,
   `tanggal_pelaksanaan` date NOT NULL,
   `tanggal_selesai` date DEFAULT NULL,
-  `judul_ta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci DEFAULT NULL,
-  `kebutuhan` enum('Eksternal','Internal') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci DEFAULT NULL,
-  `alasan_penolakan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci,
+  `judul_ta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kebutuhan` enum('Eksternal','Internal') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alasan_penolakan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `keterangan` text,
   `softfile_scan` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `surat`
